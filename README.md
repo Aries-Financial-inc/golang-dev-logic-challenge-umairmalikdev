@@ -1,50 +1,84 @@
-[![Work in MakeCode](https://classroom.github.com/assets/work-in-make-code-8824cc13a1a3f34ffcd245c82f0ae96fdae6b7d554b6539aec3a03a70825519c.svg)](https://classroom.github.com/online_ide?assignment_repo_id=15266864&assignment_repo_type=AssignmentRepo)
 
+# Fiber Options Analysis
 
-## Objective
+This project analyzes options contracts using the Fiber web framework in Go. The analysis includes calculating profit/loss values, maximum profit, maximum loss, and break-even points for a given set of options contracts.
 
-Design and implement a backend service for options contracts risk and reward analysis using GoLang.
+## Prerequisites
 
-## Brief
+- Go (version 1.16 or higher)
+- Fiber framework
+- Go modules
 
-Aries Financial is looking for a Lead GoLang Developer that can create a backend service to generate a risk & reward graph for options contracts. The service should accept an input of up to four options contracts and output X & Y values for a risk & reward graph where X is the price of the underlying at the time of expiry and Y is the profit/loss at that price. It should also return the following: max profit, max loss, and all break even points.
+## Installation
 
-Here are the tasks you need to accomplish:
+1. Install Go from the official [website](https://golang.org/dl/).
 
-1. **Task 1: Options Contract Model**
-    - Implement an OptionsContract model with the following fields: type (call or put), strike_price, bid, ask, expiration_date, long_short
+2. Set up your Go workspace and ensure your `GOPATH` and `GOBIN` environment variables are correctly configured.
 
-2. **Task 2: Analysis Endpoint**
-    - Implement an endpoint that accepts an array of up to four options contracts and returns the following:
-        - An array of X & Y values for the risk & reward graph
-        - The maximum possible profit
-        - The maximum possible loss
-        - All break even points
+3. Install the Fiber framework:
+    ```sh
+    go get -u github.com/gofiber/fiber/v2
+    ```
 
-3. **Task 3: Analysis Logic**
-    - Implement logic to calculate the X & Y values for the risk & reward graph
-        - X values should be the price of the underlying at the time of expiry
-        - Y values should be the profit or loss at that price
-    - Implement logic to calculate the maximum possible profit, maximum possible loss, and all break even points
+4. Install the testify package for testing:
+    ```sh
+    go get github.com/stretchr/testify
+    ```
 
-4. **Task 4: Testing**
-    - Write unit tests for the options contract model validation
-    - Write unit tests for the analysis endpoint
-    - Write integration tests that simulate a user submitting options contracts and receiving the analysis results
+5. Clone the repository or copy the project files into your workspace.
 
-### Evaluation Criteria
+## Project Structure
 
-- Correctness and completeness of the code.
-- Use of GoLang idioms and best practices.
-- Structure and organization of the code.
-- Quality of the tests and coverage of the code.
+```
+.
+├── controllers
+│   └── analysisContoller.go
+├── models
+│   └── optionsContract.go
+├── routes
+│   └── routes.go
+├── testdata
+│   └── testdata.json
+├── tests
+│   └── analysis_test.go
+└── main.go
+```
 
-### CodeSubmit 
+- `controllers/analysisController.go`: Contains the logic for analyzing options contracts.
+- `models/optionsContract.go`: Defines the data structure for an options contract.
+- `routes/routes.go`: Sets up the routes for the application.
+- `testdata/testdata.json`: Sample test data for options contracts.
+- `tests/analysis_test.go`: Contains test cases for the application.
+- `main.go`: The entry point of the application.
 
-Please organize, design, test, and document your code as if it were
-going into production - then push your changes to the master branch.
+## Running the Application
 
-Have fun coding! 🚀
+1. Navigate to the project directory.
 
-The Aries Financial Team
+2. Run the application:
+    ```sh
+    go run main.go
+    ```
 
+3. The server will start at `http://localhost:8080`. You can test the `/analyze` endpoint using the sample data in `testdata/testdata.json`.
+
+## Testing the Application
+
+1. Navigate to the project directory.
+
+2. Run the tests:
+    ```sh
+    go test ./tests
+    ```
+
+3. The tests will validate the functionality of the model and the `/analyze` endpoint.
+
+## Testing the Endpoint
+
+You can use `curl` or any API testing tool like Postman to send a POST request to the `/analyze` endpoint with the sample data.
+
+Example `curl` command:
+
+```sh
+curl -X POST http://localhost:8080/analyze      -H "Content-Type: application/json"      -d @testdata/testdata.json
+```

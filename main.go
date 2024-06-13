@@ -1,17 +1,15 @@
 package main
 
 import (
-	"net/http"
-	"fmt"
+	"log"
+	"github.com/gofiber/fiber/v2"
+	"github.com/umairmalik/fiber-options-analysis/routes"
 )
 
 func main() {
-	http.HandleFunc("/analyze", analyzeHandler)
+	app := fiber.New()
 
-	fmt.Println("Starting server on port 8080")
-	http.ListenAndServe(":8080", nil)
-}
+	routes.SetupRoutes(app)
 
-func analyzeHandler(w http.ResponseWriter, r *http.Request) {
-	// Your code here
+	log.Fatal(app.Listen(":8080"))
 }
